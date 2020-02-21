@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import CharacterCard from "./components/CharacterCard.js";
+import CharacterCard from "./components/CharacterCard";
+import PageControls from "./components/PageControls";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -27,27 +28,37 @@ const App = () => {
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
+  const [page, setPage] = useState("https://swapi.co/api/people");
+
   const [characters, setCharacters] = useState([]);
   const [count, setCount] = useState(0);
+  const [next, setNext] = useState(null);
+  const [prev, setPrev] = useState(null);
 
   useEffect(() => {
     axios
-      .get("https://swapi.co/api/people")
+      .get(page)
       .then(res => {
         console.log(res);
         setCount(res.data.count);
         setCharacters(res.data.results);
+        setNext(res.data.next);
+        setPrev(res.data.previous);
       })
       .catch(e => console.log("There was an error getting the data: ", e));
-  }, []);
+  }, [page]);
 
   return (
     <Container className="App">
       <h1 className="Header">React Wars</h1>
       <Content>
-        <p>
-          Displaying {characters.length} results out of {count}
-        </p>
+        <PageControls
+          numCharacters={characters.length}
+          count={count}
+          prev={prev}
+          next={next}
+          setPage={setPage}
+        />
         <Cards>
           {characters.map((c, idx) => (
             <CharacterCard key={idx} {...c} />

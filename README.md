@@ -123,7 +123,7 @@ attempts too much and fails.
       a search form that will filter through the data displayed from your
       characters.
 
-- [ ] Build a pagination system that will allow you to load the next page of
+- [x] Build a pagination system that will allow you to load the next page of
       data.
   - `console.log()` the data coming back from the server.
   - Notice that there are `next` and `previous` fields that give you a URL.
