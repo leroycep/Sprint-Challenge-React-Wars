@@ -65,11 +65,21 @@ const App = () => {
           next={next}
           setPage={setPage}
         />
+
         <Cards>
           {characters.map((c, idx) => (
             <CharacterCard key={idx} {...c} />
           ))}
         </Cards>
+
+        <PageControls
+          numCharacters={characters.length}
+          count={count}
+          prev={prev}
+          next={next}
+          setPage={setPage}
+        />
+        <SearchBar setPage={setPage} />
       </Content>
     </Container>
   );
