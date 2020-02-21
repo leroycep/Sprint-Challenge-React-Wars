@@ -14,9 +14,9 @@ const Button = styled.button`
 
 export default function PageControls(props) {
   const isNext = props.next !== null;
-  const gotoNext = () => props.setPage(props.next);
+  const gotoNext = () => props.setPage([props.next, null]);
   const isPrev = props.prev !== null;
-  const gotoPrev = () => props.setPage(props.prev);
+  const gotoPrev = () => props.setPage([props.prev, null]);
   return (
     <Container>
       <Button onClick={gotoPrev} enabled={isPrev ? "enabled" : "disabled"}>

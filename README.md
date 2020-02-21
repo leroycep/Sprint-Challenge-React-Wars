@@ -119,7 +119,7 @@ attempts too much and fails.
 
 ## Stretch Problems
 
-- [ ] Next week we will be looking at React forms. Look a head and try to create
+- [x] Next week we will be looking at React forms. Look a head and try to create
       a search form that will filter through the data displayed from your
       characters.
 

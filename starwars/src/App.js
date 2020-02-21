@@ -3,6 +3,7 @@ import axios from "axios";
 import "./App.css";
 import CharacterCard from "./components/CharacterCard";
 import PageControls from "./components/PageControls";
+import SearchBar from "./components/SearchBar";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -28,7 +29,10 @@ const App = () => {
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-  const [page, setPage] = useState("https://swapi.co/api/people");
+  const [pageAndParams, setPage] = useState([
+    "https://swapi.co/api/people",
+    null
+  ]);
 
   const [characters, setCharacters] = useState([]);
   const [count, setCount] = useState(0);
@@ -36,8 +40,9 @@ const App = () => {
   const [prev, setPrev] = useState(null);
 
   useEffect(() => {
+    const [page, params] = pageAndParams;
     axios
-      .get(page)
+      .get(page, { params: params })
       .then(res => {
         console.log(res);
         setCount(res.data.count);
@@ -46,12 +51,13 @@ const App = () => {
         setPrev(res.data.previous);
       })
       .catch(e => console.log("There was an error getting the data: ", e));
-  }, [page]);
+  }, [pageAndParams]);
 
   return (
     <Container className="App">
       <h1 className="Header">React Wars</h1>
       <Content>
+        <SearchBar setPage={setPage} />
         <PageControls
           numCharacters={characters.length}
           count={count}
