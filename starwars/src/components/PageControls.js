@@ -19,13 +19,13 @@ export default function PageControls(props) {
   const gotoPrev = () => props.setPage([props.prev, null]);
   return (
     <Container>
-      <Button onClick={gotoPrev} enabled={isPrev ? "enabled" : "disabled"}>
+      <Button onClick={gotoPrev} disabled={!isPrev}>
         Previous
       </Button>
       <div>
         Displaying {props.numCharacters} results out of {props.count}
       </div>
-      <Button onClick={gotoNext} enabled={isNext ? "enabled" : "disabled"}>
+      <Button onClick={gotoNext} disabled={!isNext}>
         Next
       </Button>
     </Container>
