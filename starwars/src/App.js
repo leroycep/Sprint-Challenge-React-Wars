@@ -10,8 +10,11 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const Cards = styled.div`
+const Content = styled.div`
   margin-top: 20vh;
+`;
+
+const Cards = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -25,12 +28,14 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
   const [characters, setCharacters] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     axios
       .get("https://swapi.co/api/people")
       .then(res => {
         console.log(res);
+        setCount(res.data.count);
         setCharacters(res.data.results);
       })
       .catch(e => console.log("There was an error getting the data: ", e));
@@ -39,11 +44,16 @@ const App = () => {
   return (
     <Container className="App">
       <h1 className="Header">React Wars</h1>
-      <Cards>
-        {characters.map((c, idx) => (
-          <CharacterCard key={idx} {...c} />
-        ))}
-      </Cards>
+      <Content>
+        <p>
+          Displaying {characters.length} results out of {count}
+        </p>
+        <Cards>
+          {characters.map((c, idx) => (
+            <CharacterCard key={idx} {...c} />
+          ))}
+        </Cards>
+      </Content>
     </Container>
   );
 };
