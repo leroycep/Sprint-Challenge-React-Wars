@@ -24,7 +24,7 @@ export default function SearchBar(props) {
   return (
     <Container>
       <Input type="text" onChange={ev => setSearch(ev.target.value)} />
-      <Button onClick={gotoSearch} enabled={search === "" ?  "disabled" : "enabled"}>
+      <Button onClick={gotoSearch}>
         Go
       </Button>
     </Container>
